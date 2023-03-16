@@ -20,16 +20,26 @@ text:action.payload
 state.push(newTask)
 },
 deleteTask:(state,action)=>{
-state = state.filter((e)=>e.id  !==action.payload  )
+state = state.filter((e)=>e.id  !== action.payload  )
 return state
 },
 toggel:(state,action)=>{
-const task = state.find((el)=>el.id===action.payload)
+const task = state.map((el)=>{
+  if(el.id === action.payload){
+    return {... el , isDone  : !el.isDone}
+  
+  }else{return el}
+}
+
+)},
+edittoggel : (state,action)=>{
+  const index = state.findIndex((e)=> e.id === action.payload)
+  state[index].description = prompt ('text');
 
 }
 }   
 })
 
-export const {addTask,deleteTask,toggel} = todoSlice.actions;
+export const {addTask,deleteTask,toggel,edittoggel} = todoSlice.actions;
 export default todoSlice.reducer;
 
